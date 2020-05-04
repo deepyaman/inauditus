@@ -1,14 +1,4 @@
-raw_ncov_hubei:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/nCoV2019/Hubei.data.csv
-  versioned: True
-
-raw_ncov_latest_data:
+raw_covid_19_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/nCoV2019/covid-19.data.csv
-  versioned: True
-
-raw_ncov_outside_hubei:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/nCoV2019/outside_Hubei.data.csv
   versioned: True

@@ -22,9 +22,6 @@ logs/**
 # keep also the example dataset
 !data/01_raw/iris.csv
 
-# also keep the nCoV2019 dataset
-!data/01_raw/nCoV2019/**
-
 
 ##########################
 # Common files

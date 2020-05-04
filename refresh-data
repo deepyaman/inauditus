@@ -1,0 +1,22 @@
+#!/bin/bash
+readonly NCOV2019_ROOT=~/'nCoV2019'
+readonly PREFIX='covid-19.data.'
+readonly SUFFIX='.csv'
+
+readonly INPUT_VERSION_FMT='%Y-%m-%dT%H%M%S'
+readonly KEDRO_VERSION_FMT='%Y-%m-%dT%H.%M.%S.000Z'  # nCoV2019 only has seconds
+
+readonly TARGET_DIRNAME='data/01_raw/nCoV2019'
+readonly DATASET_NAME="${PREFIX}${SUFFIX:1}"
+
+shopt -s failglob
+# Add '2020-' to exclude 'covid-19.data.20200323T040651.csv' from list of files.
+declare -a files=("${NCOV2019_ROOT}/dataset_archive/${PREFIX}2020-"*"${SUFFIX}")
+
+for file in "${files[@]}"; do
+  tmp="${file#$NCOV2019_ROOT/dataset_archive/$PREFIX}"
+  dt="${tmp%$SUFFIX}"
+  version="$(date -j -f "${INPUT_VERSION_FMT}" "${dt}" "+${KEDRO_VERSION_FMT}")"
+  mkdir -p "${TARGET_DIRNAME}/${DATASET_NAME}/${version}"
+  ln -s "${file}" "${TARGET_DIRNAME}/${DATASET_NAME}/${version}/${DATASET_NAME}"
+done
